@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title><%= typeof title !== 'undefined' ? title : 'Portfolio - Izdlan' %></title>
+    <link rel="icon" type="image/png" href="/assets/logo1.png">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        'inter': ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        'dark': '#0a0a0a',
+                        'neon': '#E2FF00',
+                        'neon-dark': '#B8CC00',
+                    },
+                    animation: {
+                        'fade-in': 'fadeIn 0.5s ease-out',
+                        'slide-up': 'slideUp 0.5s ease-out',
+                        'glow': 'glow 2s ease-in-out infinite',
+                    },
+                    keyframes: {
+                        fadeIn: {
+                            '0%': { opacity: '0', transform: 'translateY(20px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        slideUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        glow: {
+                            '0%, 100%': { textShadow: '0 0 20px rgba(226, 255, 0, 0.5)' },
+                            '50%': { textShadow: '0 0 30px rgba(226, 255, 0, 0.8)' },
+                        },
+                    },
+                }
+            }
+        }
+    </script>
+    <% if (typeof styles !== 'undefined') { %>
+        <%- styles %>
+    <% } %>
+    
+    <!-- Snow Effect Styles -->
+    <style>
+        .snow-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+        
+        .snowflake {
+            position: absolute;
+            top: -10px;
+            color: rgba(226, 255, 0, 0.3);
+            user-select: none;
+            pointer-events: auto;
+            animation: snowfall linear infinite;
+            cursor: pointer;
+            transition: transform 0.2s ease;
+        }
+        
+        .snowflake:hover {
+            color: rgba(226, 255, 0, 0.6);
+            transform: scale(1.2);
+        }
+        
+        .snowflake.popped {
+            animation: snowpop 0.5s ease-out forwards;
+        }
+        
+        @keyframes snowfall {
+            to {
+                transform: translateY(100vh) rotate(360deg);
+            }
+        }
+        
+        @keyframes snowpop {
+            0% {
+                transform: scale(1);
+                opacity: 0.3;
+            }
+            50% {
+                transform: scale(2);
+                opacity: 1;
+                color: #E2FF00;
+            }
+            100% {
+                transform: scale(0);
+                opacity: 0;
+            }
+        }
+        
+        .snowflake:nth-child(1) { left: 1%; animation-duration: 10s; animation-delay: 0s; font-size: 14px; }
+        .snowflake:nth-child(2) { left: 5%; animation-duration: 12s; animation-delay: 1s; font-size: 12px; }
+        .snowflake:nth-child(3) { left: 10%; animation-duration: 8s; animation-delay: 2s; font-size: 16px; }
+        .snowflake:nth-child(4) { left: 15%; animation-duration: 15s; animation-delay: 0s; font-size: 10px; }
+        .snowflake:nth-child(5) { left: 20%; animation-duration: 11s; animation-delay: 3s; font-size: 14px; }
+        .snowflake:nth-child(6) { left: 25%; animation-duration: 9s; animation-delay: 1s; font-size: 12px; }
+        .snowflake:nth-child(7) { left: 30%; animation-duration: 13s; animation-delay: 2s; font-size: 15px; }
+        .snowflake:nth-child(8) { left: 35%; animation-duration: 10s; animation-delay: 0s; font-size: 11px; }
+        .snowflake:nth-child(9) { left: 40%; animation-duration: 14s; animation-delay: 4s; font-size: 13px; }
+        .snowflake:nth-child(10) { left: 45%; animation-duration: 8s; animation-delay: 1s; font-size: 14px; }
+        .snowflake:nth-child(11) { left: 50%; animation-duration: 12s; animation-delay: 2s; font-size: 12px; }
+        .snowflake:nth-child(12) { left: 55%; animation-duration: 11s; animation-delay: 3s; font-size: 16px; }
+        .snowflake:nth-child(13) { left: 60%; animation-duration: 9s; animation-delay: 0s; font-size: 10px; }
+        .snowflake:nth-child(14) { left: 65%; animation-duration: 13s; animation-delay: 1s; font-size: 15px; }
+        .snowflake:nth-child(15) { left: 70%; animation-duration: 10s; animation-delay: 2s; font-size: 13px; }
+        .snowflake:nth-child(16) { left: 75%; animation-duration: 15s; animation-delay: 4s; font-size: 11px; }
+        .snowflake:nth-child(17) { left: 80%; animation-duration: 8s; animation-delay: 0s; font-size: 14px; }
+        .snowflake:nth-child(18) { left: 85%; animation-duration: 12s; animation-delay: 1s; font-size: 12px; }
+        .snowflake:nth-child(19) { left: 90%; animation-duration: 11s; animation-delay: 3s; font-size: 16px; }
+        .snowflake:nth-child(20) { left: 95%; animation-duration: 14s; animation-delay: 2s; font-size: 10px; }
+        .snowflake:nth-child(21) { left: 3%; animation-duration: 10s; animation-delay: 1s; font-size: 13px; }
+        .snowflake:nth-child(22) { left: 8%; animation-duration: 9s; animation-delay: 2s; font-size: 15px; }
+        .snowflake:nth-child(23) { left: 13%; animation-duration: 13s; animation-delay: 0s; font-size: 11px; }
+        .snowflake:nth-child(24) { left: 18%; animation-duration: 8s; animation-delay: 3s; font-size: 14px; }
+        .snowflake:nth-child(25) { left: 23%; animation-duration: 12s; animation-delay: 1s; font-size: 12px; }
+        .snowflake:nth-child(26) { left: 28%; animation-duration: 11s; animation-delay: 4s; font-size: 16px; }
+        .snowflake:nth-child(27) { left: 33%; animation-duration: 10s; animation-delay: 2s; font-size: 10px; }
+        .snowflake:nth-child(28) { left: 38%; animation-duration: 15s; animation-delay: 0s; font-size: 13px; }
+        .snowflake:nth-child(29) { left: 43%; animation-duration: 9s; animation-delay: 1s; font-size: 15px; }
+        .snowflake:nth-child(30) { left: 48%; animation-duration: 13s; animation-delay: 3s; font-size: 11px; }
+        .snowflake:nth-child(31) { left: 53%; animation-duration: 8s; animation-delay: 2s; font-size: 14px; }
+        .snowflake:nth-child(32) { left: 58%; animation-duration: 12s; animation-delay: 0s; font-size: 12px; }
+        .snowflake:nth-child(33) { left: 63%; animation-duration: 11s; animation-delay: 4s; font-size: 16px; }
+        .snowflake:nth-child(34) { left: 68%; animation-duration: 10s; animation-delay: 1s; font-size: 10px; }
+        .snowflake:nth-child(35) { left: 73%; animation-duration: 14s; animation-delay: 2s; font-size: 13px; }
+        .snowflake:nth-child(36) { left: 78%; animation-duration: 9s; animation-delay: 3s; font-size: 15px; }
+        .snowflake:nth-child(37) { left: 83%; animation-duration: 13s; animation-delay: 0s; font-size: 11px; }
+        .snowflake:nth-child(38) { left: 88%; animation-duration: 8s; animation-delay: 1s; font-size: 14px; }
+        .snowflake:nth-child(39) { left: 93%; animation-duration: 12s; animation-delay: 2s; font-size: 12px; }
+        .snowflake:nth-child(40) { left: 98%; animation-duration: 11s; animation-delay: 4s; font-size: 16px; }
+        .snowflake:nth-child(41) { left: 2%; animation-duration: 10s; animation-delay: 0s; font-size: 13px; }
+        .snowflake:nth-child(42) { left: 7%; animation-duration: 15s; animation-delay: 1s; font-size: 15px; }
+        .snowflake:nth-child(43) { left: 12%; animation-duration: 9s; animation-delay: 3s; font-size: 11px; }
+        .snowflake:nth-child(44) { left: 17%; animation-duration: 13s; animation-delay: 2s; font-size: 14px; }
+        .snowflake:nth-child(45) { left: 22%; animation-duration: 8s; animation-delay: 0s; font-size: 12px; }
+        .snowflake:nth-child(46) { left: 27%; animation-duration: 12s; animation-delay: 4s; font-size: 16px; }
+        .snowflake:nth-child(47) { left: 32%; animation-duration: 11s; animation-delay: 1s; font-size: 10px; }
+        .snowflake:nth-child(48) { left: 37%; animation-duration: 10s; animation-delay: 2s; font-size: 13px; }
+        .snowflake:nth-child(49) { left: 42%; animation-duration: 14s; animation-delay: 3s; font-size: 15px; }
+        .snowflake:nth-child(50) { left: 47%; animation-duration: 9s; animation-delay: 0s; font-size: 11px; }
+
+        /* Sidebar nav dot pulse (throbbing effect for active dot) */
+        .nav-dot-active {
+            animation: navDotPulse 1.6s ease-in-out infinite;
+        }
+
+        @keyframes navDotPulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(226, 255, 0, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 16px 4px rgba(226, 255, 0, 0.9);
+            }
+        }
+    </style>
+</head>
+<body class="bg-dark text-white font-inter antialiased">
+    <!-- Snow Effect -->
+    <div class="snow-container">
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+        <div class="snowflake">❄</div>
+        <div class="snowflake">❅</div>
+        <div class="snowflake">❆</div>
+    </div>
+    <div class="flex min-h-screen relative" style="z-index: 10;">
+        <!-- Top Navigation (replaces sidebar) -->
+        <nav class="fixed top-0 left-0 right-0 bg-dark/95 backdrop-blur-lg border-b border-gray-900 z-50">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="flex items-center justify-between py-4">
+                    <div class="flex items-center space-x-3">
+                        <img src="/assets/logo1.png" alt="Portfolio Logo" class="w-10 h-10">
+                        <h1 class="text-neon text-xl font-bold">PORTFOLIO</h1>
+                    </div>
+                    <div class="hidden sm:flex items-center space-x-8">
+                        <a href="/" class="nav-dot group flex items-center space-x-2" title="Home">
+                            <div class="w-4 h-4 bg-gray-700 rounded-full group-hover:bg-neon group-hover:scale-150 transition-all duration-300 cursor-pointer shadow-lg group-hover:shadow-neon/50"></div>
+                            <span class="text-xs text-gray-400">Home</span>
+                        </a>
+                        <a href="/about" class="nav-dot group flex items-center space-x-2" title="About">
+                            <div class="w-4 h-4 bg-gray-700 rounded-full group-hover:bg-neon group-hover:scale-150 transition-all duration-300 cursor-pointer shadow-lg group-hover:shadow-neon/50"></div>
+                            <span class="text-xs text-gray-400">About</span>
+                        </a>
+                        <a href="/projects" class="nav-dot group flex items-center space-x-2" title="Projects">
+                            <div class="w-4 h-4 bg-gray-700 rounded-full group-hover:bg-neon group-hover:scale-150 transition-all duration-300 cursor-pointer shadow-lg group-hover:shadow-neon/50"></div>
+                            <span class="text-xs text-gray-400">Projects</span>
+                        </a>
+                        <a href="/experience" class="nav-dot group flex items-center space-x-2" title="Experience">
+                            <div class="w-4 h-4 bg-gray-700 rounded-full group-hover:bg-neon group-hover:scale-150 transition-all duration-300 cursor-pointer shadow-lg group-hover:shadow-neon/50"></div>
+                            <span class="text-xs text-gray-400">Experience</span>
+                        </a>
+                        <a href="/contact" class="nav-dot group flex items-center space-x-2" title="Contact">
+                            <div class="w-4 h-4 bg-gray-700 rounded-full group-hover:bg-neon group-hover:scale-150 transition-all duration-300 cursor-pointer shadow-lg group-hover:shadow-neon/50"></div>
+                            <span class="text-xs text-gray-400">Contact</span>
+                        </a>
+                    </div>
+                    <button id="mobile-menu-btn" class="sm:hidden text-gray-400 hover:text-neon transition-colors duration-300">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+                <div id="mobile-menu" class="sm:hidden hidden pb-4 border-t border-gray-900">
+                    <div class="flex items-center justify-between pt-3">
+                        <div class="flex items-center space-x-6">
+                            <a href="/" class="nav-dot flex items-center space-x-2" title="Home">
+                                <div class="w-4 h-4 bg-gray-700 rounded-full group-hover:bg-neon group-hover:scale-150 transition-all duration-300 cursor-pointer shadow-lg group-hover:shadow-neon/50"></div>
+                                <span class="text-xs text-gray-400">Home</span>
+                            </a>
+                            <a href="/about" class="nav-dot flex items-center space-x-2" title="About">
+                                <div class="w-4 h-4 bg-gray-700 rounded-full group-hover:bg-neon group-hover:scale-150 transition-all duration-300 cursor-pointer shadow-lg group-hover:shadow-neon/50"></div>
+                                <span class="text-xs text-gray-400">About</span>
+                            </a>
+                            <a href="/projects" class="nav-dot flex items-center space-x-2" title="Projects">
+                                <div class="w-4 h-4 bg-gray-700 rounded-full group-hover:bg-neon group-hover:scale-150 transition-all duration-300 cursor-pointer shadow-lg group-hover:shadow-neon/50"></div>
+                                <span class="text-xs text-gray-400">Projects</span>
+                            </a>
+                            <a href="/experience" class="nav-dot flex items-center space-x-2" title="Experience">
+                                <div class="w-4 h-4 bg-gray-700 rounded-full group-hover:bg-neon group-hover:scale-150 transition-all duration-300 cursor-pointer shadow-lg group-hover:shadow-neon/50"></div>
+                                <span class="text-xs text-gray-400">Experience</span>
+                            </a>
+                            <a href="/contact" class="nav-dot flex items-center space-x-2" title="Contact">
+                                <div class="w-4 h-4 bg-gray-700 rounded-full group-hover:bg-neon group-hover:scale-150 transition-all duration-300 cursor-pointer shadow-lg group-hover:shadow-neon/50"></div>
+                                <span class="text-xs text-gray-400">Contact</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main Content -->
+        <main class="flex-1 <%= currentPath === '/' ? 'pt-24' : 'pt-8' %>">
+            <%- body %>
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-dark border-t border-gray-900 py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-600 text-sm mb-4 md:mb-0">© <%= new Date().getFullYear() %> Wan Izdlan Haiqal. All rights reserved.</p>
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-600 hover:text-neon transition-colors duration-300">
+                        <i class="fab fa-github"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-neon transition-colors duration-300">
+                        <i class="fab fa-linkedin"></i>
+                    </a>
+                    <a href="#" class="text-gray-600 hover:text-neon transition-colors duration-300">
+                        <i class="fab fa-twitter"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Mobile menu toggle
+        document.getElementById('mobile-menu-btn').addEventListener('click', function() {
+            document.getElementById('mobile-menu').classList.toggle('hidden');
+        });
+
+        // Active navigation state
+        const currentPath = window.location.pathname;
+        document.querySelectorAll('.nav-dot').forEach(dot => {
+            const circle = dot.querySelector('div');
+            if (dot.getAttribute('href') === currentPath) {
+                circle.classList.remove('bg-gray-700');
+                circle.classList.add('bg-neon', 'nav-dot-active');
+            } else {
+                circle.classList.remove('bg-neon', 'nav-dot-active');
+                circle.classList.add('bg-gray-700');
+            }
+        });
+
+        // Snowflake click effect
+        document.querySelectorAll('.snowflake').forEach(snowflake => {
+            snowflake.addEventListener('click', function() {
+                // Add popped class for animation
+                this.classList.add('popped');
+                
+                // Remove the snowflake after animation completes
+                setTimeout(() => {
+                    this.style.visibility = 'hidden';
+                    
+                    // Reset and show again after a delay
+                    setTimeout(() => {
+                        this.classList.remove('popped');
+                        this.style.visibility = 'visible';
+                    }, 3000);
+                }, 500);
+            });
+        });
+    </script>
+    <% if (typeof scripts !== 'undefined') { %>
+        <%- scripts %>
+    <% } %>
+    
+    <!-- Floating WhatsApp Button -->
+    <a href="https://wa.me/60136281083?text=Hello,%20i%20interested" target="_blank" class="fixed bottom-8 right-8 w-16 h-16 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-50 hover:scale-110">
+        <i class="fab fa-whatsapp text-2xl"></i>
+    </a>
+</body>
+</html>
