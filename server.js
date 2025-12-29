@@ -3,9 +3,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import expressLayouts from 'express-ejs-layouts';
 import nodemailer from 'nodemailer';
-import dotenv from 'dotenv';
-
-dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -68,17 +65,14 @@ app.post('/contact', async (req, res) => {
     const { name, email, subject, message } = req.body;
     
     try {
-        // Create a test account for development (replace with real SMTP in production)
-        const testAccount = await nodemailer.createTestAccount();
-        
-        // Create transporter with Gmail (for production, use App Password)
+        // Create transporter with environment variables
         const transporter = nodemailer.createTransport({
-            host: 'smtp.gmail.com',
-            port: 587,
+            host: process.env.SMTP_HOST || 'smtp.gmail.com',
+            port: process.env.SMTP_PORT || 587,
             secure: false,
             auth: {
-                user: 'whaiqal7@gmail.com',
-                pass: process.env.EMAIL_PASSWORD // EMAIL_PASSWORD environment variable is required
+                user: process.env.EMAIL_USER,
+                pass: process.env.EMAIL_PASSWORD
             }
         });
         
