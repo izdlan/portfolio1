@@ -49,6 +49,15 @@
     
     <!-- Snow Effect Styles -->
     <style>
+        .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+        }
+        
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+        }
+        
         .snow-container {
             position: fixed;
             top: 0;
@@ -254,8 +263,8 @@
                     </button>
                 </div>
                 <div id="mobile-menu" class="sm:hidden hidden pb-4 border-t border-gray-900">
-                    <div class="flex items-center justify-between pt-3">
-                        <div class="flex items-center space-x-6">
+                    <div class="pt-3 overflow-x-auto scrollbar-hide">
+                        <div class="flex items-center space-x-6 min-w-max px-4">
                             <a href="/" class="nav-dot flex items-center space-x-2" title="Home">
                                 <div class="w-4 h-4 bg-gray-700 rounded-full group-hover:bg-neon group-hover:scale-150 transition-all duration-300 cursor-pointer shadow-lg group-hover:shadow-neon/50"></div>
                                 <span class="text-xs text-gray-400">Home</span>
@@ -294,14 +303,14 @@
             <div class="flex flex-col md:flex-row justify-between items-center">
                 <p class="text-gray-600 text-sm mb-4 md:mb-0">© <%= new Date().getFullYear() %> Wan Izdlan Haiqal. All rights reserved.</p>
                 <div class="flex space-x-6">
-                    <a href="#" class="text-gray-600 hover:text-neon transition-colors duration-300">
+                    <a href="https://github.com/izdlan" target="_blank" class="text-gray-600 hover:text-neon transition-colors duration-300">
                         <i class="fab fa-github"></i>
                     </a>
-                    <a href="#" class="text-gray-600 hover:text-neon transition-colors duration-300">
+                    <a href="https://linkedin.com/in/wanizdlanhaiqal" target="_blank" class="text-gray-600 hover:text-neon transition-colors duration-300">
                         <i class="fab fa-linkedin"></i>
                     </a>
-                    <a href="#" class="text-gray-600 hover:text-neon transition-colors duration-300">
-                        <i class="fab fa-twitter"></i>
+                    <a href="https://www.instagram.com/hyeqaal__/" target="_blank" class="text-gray-600 hover:text-neon transition-colors duration-300">
+                        <i class="fab fa-instagram"></i>
                     </a>
                 </div>
             </div>
