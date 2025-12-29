@@ -3,6 +3,9 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import expressLayouts from 'express-ejs-layouts';
 import nodemailer from 'nodemailer';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -75,7 +78,7 @@ app.post('/contact', async (req, res) => {
             secure: false,
             auth: {
                 user: 'whaiqal7@gmail.com',
-                pass: process.env.EMAIL_PASSWORD || 'nvrc xsxs wlcs aoxz' // Use environment variable in production
+                pass: process.env.EMAIL_PASSWORD // EMAIL_PASSWORD environment variable is required
             }
         });
         
