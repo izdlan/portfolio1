@@ -1,0 +1,178 @@
+<!-- Hero Section with Countdown -->
+<section class="py-20 px-4 sm:px-6 lg:px-8 min-h-screen flex items-center justify-center">
+    <div class="max-w-6xl mx-auto text-center">
+        <h1 class="text-4xl lg:text-6xl font-bold text-white mb-4">Internship Journey</h1>
+        <p class="text-xl text-gray-300 mb-12">Counting down to the completion of my internship at Olympia Education Malaysia</p>
+        
+        <!-- Countdown Timer -->
+        <div class="mb-16">
+            <h2 class="text-2xl text-neon mb-8">Time Remaining</h2>
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-8 max-w-3xl mx-auto">
+                <div class="bg-gray-900/50 backdrop-blur-lg rounded-lg p-6 border border-gray-800 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-neon/5 to-transparent pointer-events-none"></div>
+                    <div id="days" class="text-5xl lg:text-6xl font-bold text-neon mb-2 relative z-10 transition-all duration-300" style="text-shadow: 0 0 20px rgba(226, 255, 0, 0.8), 0 0 40px rgba(226, 255, 0, 0.4); font-family: 'Courier New', monospace;">00</div>
+                    <div class="text-gray-400 text-sm uppercase tracking-wide">Days</div>
+                </div>
+                <div class="bg-gray-900/50 backdrop-blur-lg rounded-lg p-6 border border-gray-800 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-neon/5 to-transparent pointer-events-none"></div>
+                    <div id="hours" class="text-5xl lg:text-6xl font-bold text-neon mb-2 relative z-10 transition-all duration-300" style="text-shadow: 0 0 20px rgba(226, 255, 0, 0.8), 0 0 40px rgba(226, 255, 0, 0.4); font-family: 'Courier New', monospace;">00</div>
+                    <div class="text-gray-400 text-sm uppercase tracking-wide">Hours</div>
+                </div>
+                <div class="bg-gray-900/50 backdrop-blur-lg rounded-lg p-6 border border-gray-800 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-neon/5 to-transparent pointer-events-none"></div>
+                    <div id="minutes" class="text-5xl lg:text-6xl font-bold text-neon mb-2 relative z-10 transition-all duration-300" style="text-shadow: 0 0 20px rgba(226, 255, 0, 0.8), 0 0 40px rgba(226, 255, 0, 0.4); font-family: 'Courier New', monospace;">00</div>
+                    <div class="text-gray-400 text-sm uppercase tracking-wide">Minutes</div>
+                </div>
+                <div class="bg-gray-900/50 backdrop-blur-lg rounded-lg p-6 border border-gray-800 relative overflow-hidden">
+                    <div class="absolute inset-0 bg-gradient-to-b from-transparent via-neon/5 to-transparent pointer-events-none"></div>
+                    <div id="seconds" class="text-5xl lg:text-6xl font-bold text-neon mb-2 relative z-10 transition-all duration-300" style="text-shadow: 0 0 20px rgba(226, 255, 0, 0.8), 0 0 40px rgba(226, 255, 0, 0.4); font-family: 'Courier New', monospace;">00</div>
+                    <div class="text-gray-400 text-sm uppercase tracking-wide">Seconds</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Event Details -->
+        <div class="bg-gray-900/30 backdrop-blur-lg rounded-lg p-8 border border-gray-800 max-w-2xl mx-auto">
+            <h3 class="text-2xl font-semibold text-white mb-4">Internship Completion</h3>
+            <div class="space-y-2 text-gray-300">
+                <p><i class="fas fa-calendar-alt text-neon mr-2"></i> Date: January 30, 2026</p>
+                <p><i class="fas fa-building text-neon mr-2"></i> Company: Olympia Education Malaysia</p>
+                <p><i class="fas fa-briefcase text-neon mr-2"></i> Position: Information Technology Intern</p>
+            </div>
+        </div>
+
+        <!-- CTA Buttons -->
+        <div class="mt-12 flex flex-col sm:flex-row gap-4 justify-center">
+            <a href="/contact" class="px-8 py-3 bg-neon text-dark font-semibold rounded-full hover:bg-neon-dark transition-colors duration-300">
+                Get In Touch
+            </a>
+            <a href="/experience" class="px-8 py-3 border border-gray-800 text-white font-semibold rounded-full hover:border-neon hover:text-neon transition-all duration-300">
+                View My Experience
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Progress Section -->
+<section class="py-20 px-4 sm:px-6 lg:px-8 bg-gray-900/50">
+    <div class="max-w-4xl mx-auto">
+        <h2 class="text-3xl font-bold text-white mb-8 text-center">Internship Progress</h2>
+        <div class="space-y-6">
+            <div>
+                <div class="flex justify-between mb-2">
+                    <span class="text-gray-400">Internship Duration</span>
+                    <span class="text-neon" id="progress-percentage">0%</span>
+                </div>
+                <div class="w-full bg-gray-800 rounded-full h-3">
+                    <div id="progress-bar" class="bg-gradient-to-r from-neon to-neon-dark h-3 rounded-full transition-all duration-1000" style="width: 0%"></div>
+                </div>
+            </div>
+            <div class="text-center text-gray-400 text-sm mt-4">
+                <p>Started: <span id="start-date"></span></p>
+                <p>Current: <span id="current-date"></span></p>
+                <p>Ends: January 30, 2026</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<script>
+    // Set the target date for internship completion
+    const targetDate = new Date('January 30, 2026 00:00:00').getTime();
+    const startDate = new Date('September 15, 2025 00:00:00').getTime(); // Assuming start date, adjust as needed
+
+    // Previous values for animation
+    let prevDays = 0, prevHours = 0, prevMinutes = 0, prevSeconds = 0;
+
+    // Update countdown every second
+    const countdown = setInterval(function() {
+        // Get current date and time
+        const now = new Date().getTime();
+        
+        // Calculate distance between now and target date
+        const distance = targetDate - now;
+        
+        // Calculate time units
+        const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+        // Get elements
+        const daysEl = document.getElementById('days');
+        const hoursEl = document.getElementById('hours');
+        const minutesEl = document.getElementById('minutes');
+        const secondsEl = document.getElementById('seconds');
+        
+        // Animate numbers with mechanical clock effect
+        function updateNumber(element, newValue, prevValue) {
+            if (newValue !== prevValue) {
+                element.style.transform = 'rotateX(90deg)';
+                element.style.opacity = '0.5';
+                
+                setTimeout(() => {
+                    element.innerText = String(newValue).padStart(2, '0');
+                    element.style.transform = 'rotateX(0deg)';
+                    element.style.opacity = '1';
+                }, 150);
+            }
+        }
+        
+        // Update with animation
+        updateNumber(daysEl, days, prevDays);
+        updateNumber(hoursEl, hours, prevHours);
+        updateNumber(minutesEl, minutes, prevMinutes);
+        updateNumber(secondsEl, seconds, prevSeconds);
+        
+        // Store current values
+        prevDays = days;
+        prevHours = hours;
+        prevMinutes = minutes;
+        prevSeconds = seconds;
+        
+        // Add pulse effect to seconds
+        if (seconds !== prevSeconds) {
+            secondsEl.style.textShadow = '0 0 30px rgba(226, 255, 0, 1), 0 0 60px rgba(226, 255, 0, 0.6)';
+            setTimeout(() => {
+                secondsEl.style.textShadow = '0 0 20px rgba(226, 255, 0, 0.8), 0 0 40px rgba(226, 255, 0, 0.4)';
+            }, 200);
+        }
+        
+        // Calculate and update progress
+        const totalDuration = targetDate - startDate;
+        const elapsed = now - startDate;
+        const progress = Math.min(100, Math.max(0, (elapsed / totalDuration) * 100));
+        
+        document.getElementById('progress-percentage').innerText = progress.toFixed(1) + '%';
+        document.getElementById('progress-bar').style.width = progress + '%';
+        
+        // Update dates
+        document.getElementById('start-date').innerText = new Date(startDate).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        document.getElementById('current-date').innerText = new Date(now).toLocaleDateString('en-US', { year: 'numeric', month: 'long', day: 'numeric' });
+        
+        // If countdown is finished
+        if (distance < 0) {
+            clearInterval(countdown);
+            document.getElementById('days').innerText = '00';
+            document.getElementById('hours').innerText = '00';
+            document.getElementById('minutes').innerText = '00';
+            document.getElementById('seconds').innerText = '00';
+            
+            // Show completion message
+            const countdownSection = document.querySelector('section');
+            countdownSection.innerHTML = `
+                <div class="max-w-4xl mx-auto text-center">
+                    <h1 class="text-4xl lg:text-6xl font-bold text-white mb-4">Internship Completed! 🎉</h1>
+                    <p class="text-xl text-gray-300 mb-8">Successfully completed internship at Olympia Education Malaysia</p>
+                    <div class="bg-neon/10 border border-neon/30 rounded-lg p-8">
+                        <p class="text-2xl text-neon font-semibold mb-4">Thank you for the journey!</p>
+                        <p class="text-gray-300 mb-6">Ready for the next chapter in my career</p>
+                        <a href="/contact" class="px-8 py-3 bg-neon text-dark font-semibold rounded-full hover:bg-neon-dark transition-colors duration-300 inline-block">
+                            Let's Connect
+                        </a>
+                    </div>
+                </div>
+            `;
+        }
+    }, 1000);
+</script>

@@ -61,6 +61,13 @@ app.get('/contact', (req, res) => {
     });
 });
 
+app.get('/countdown', (req, res) => {
+    res.render('countdown', { 
+        title: 'Internship Countdown - Izdlan',
+        currentPath: '/countdown'
+    });
+});
+
 app.post('/contact', async (req, res) => {
     const { name, email, subject, message } = req.body;
     
