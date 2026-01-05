@@ -176,6 +176,115 @@
                 box-shadow: 0 0 16px 4px rgba(226, 255, 0, 0.9);
             }
         }
+
+        /* Custom Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .modal-content {
+            background: linear-gradient(135deg, #1a1a1a 0%, #0a0a0a 100%);
+            border: 1px solid rgba(226, 255, 0, 0.3);
+            border-radius: 16px;
+            padding: 32px;
+            max-width: 400px;
+            width: 90%;
+            text-align: center;
+            transform: scale(0.8);
+            transition: all 0.3s ease;
+            box-shadow: 0 20px 60px rgba(226, 255, 0, 0.2);
+        }
+
+        .modal-overlay.active .modal-content {
+            transform: scale(1);
+        }
+
+        .modal-icon {
+            width: 64px;
+            height: 64px;
+            background: rgba(226, 255, 0, 0.1);
+            border: 2px solid rgba(226, 255, 0, 0.3);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 24px;
+        }
+
+        .modal-icon i {
+            color: #E2FF00;
+            font-size: 24px;
+        }
+
+        .modal-title {
+            color: #E2FF00;
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 16px;
+        }
+
+        .modal-description {
+            color: #a0a0a0;
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 32px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 16px;
+            justify-content: center;
+        }
+
+        .modal-btn {
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-size: 14px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            min-width: 100px;
+        }
+
+        .modal-btn-cancel {
+            background: rgba(255, 255, 255, 0.1);
+            color: #a0a0a0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .modal-btn-cancel:hover {
+            background: rgba(255, 255, 255, 0.2);
+            color: #ffffff;
+        }
+
+        .modal-btn-confirm {
+            background: #E2FF00;
+            color: #0a0a0a;
+        }
+
+        .modal-btn-confirm:hover {
+            background: #B8CC00;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 24px rgba(226, 255, 0, 0.3);
+        }
     </style>
 </head>
 <body class="bg-dark text-white font-inter antialiased">
@@ -257,7 +366,7 @@
                             <div class="w-4 h-4 bg-gray-700 rounded-full group-hover:bg-neon group-hover:scale-150 transition-all duration-300 cursor-pointer shadow-lg group-hover:shadow-neon/50"></div>
                             <span class="text-xs text-gray-400">Contact</span>
                         </a>
-                        <a href="/assets/RESUME.pdf" download="Izdlan_Resume.pdf" class="group flex items-center space-x-2 ml-4 px-3 py-1.5 bg-neon/10 border border-neon/30 rounded-full hover:bg-neon/20 hover:border-neon/50 transition-all duration-300" title="Download Resume">
+                        <a href="/assets/RESUME.pdf" download="Izdlan_Resume.pdf" onclick="confirmResumeDownload(event)" class="group flex items-center space-x-2 ml-4 px-3 py-1.5 bg-neon/10 border border-neon/30 rounded-full hover:bg-neon/20 hover:border-neon/50 transition-all duration-300" title="Download Resume">
                             <i class="fas fa-download text-neon text-xs"></i>
                             <span class="text-xs text-neon font-medium">Resume</span>
                         </a>
@@ -290,7 +399,7 @@
                                 <div class="w-4 h-4 bg-gray-700 rounded-full group-hover:bg-neon group-hover:scale-150 transition-all duration-300 cursor-pointer shadow-lg group-hover:shadow-neon/50"></div>
                                 <span class="text-xs text-gray-400">Contact</span>
                             </a>
-                            <a href="/assets/RESUME.pdf" download="Izdlan_Resume.pdf" class="flex items-center space-x-2 px-3 py-1.5 bg-neon/10 border border-neon/30 rounded-full hover:bg-neon/20 hover:border-neon/50 transition-all duration-300" title="Download Resume">
+                            <a href="/assets/RESUME.pdf" download="Izdlan_Resume.pdf" onclick="confirmResumeDownload(event)" class="flex items-center space-x-2 px-3 py-1.5 bg-neon/10 border border-neon/30 rounded-full hover:bg-neon/20 hover:border-neon/50 transition-all duration-300" title="Download Resume">
                                 <i class="fas fa-download text-neon text-xs"></i>
                                 <span class="text-xs text-neon font-medium">Resume</span>
                             </a>
@@ -363,6 +472,51 @@
                 }, 500);
             });
         });
+
+        // Resume download confirmation
+        function confirmResumeDownload(event) {
+            event.preventDefault();
+            showResumeModal();
+        }
+
+        function showResumeModal() {
+            const modal = document.getElementById('resumeModal');
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        function closeResumeModal() {
+            const modal = document.getElementById('resumeModal');
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto';
+        }
+
+        function downloadResume() {
+            // Create a temporary link to trigger download
+            const link = document.createElement('a');
+            link.href = '/assets/RESUME.pdf';
+            link.download = 'Izdlan_Resume.pdf';
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            // Close modal after download starts
+            closeResumeModal();
+        }
+
+        // Close modal when clicking outside
+        document.getElementById('resumeModal').addEventListener('click', function(event) {
+            if (event.target === this) {
+                closeResumeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeResumeModal();
+            }
+        });
     </script>
     <% if (typeof scripts !== 'undefined') { %>
         <%- scripts %>
@@ -372,5 +526,22 @@
     <a href="https://wa.me/60136281083?text=Hello,%20i%20interested" target="_blank" class="fixed bottom-8 right-8 w-16 h-16 bg-green-500 hover:bg-green-600 text-white rounded-full shadow-lg flex items-center justify-center transition-all duration-300 z-50 hover:scale-110">
         <i class="fab fa-whatsapp text-2xl"></i>
     </a>
+
+    <!-- Custom Resume Download Modal -->
+    <div id="resumeModal" class="modal-overlay">
+        <div class="modal-content">
+            <div class="modal-icon">
+                <i class="fas fa-download"></i>
+            </div>
+            <h3 class="modal-title">Download Resume</h3>
+            <p class="modal-description">
+                This will download Izdlan Haiqal's resume in PDF format. The file contains professional experience, skills, and contact information.
+            </p>
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-cancel" onclick="closeResumeModal()">Cancel</button>
+                <button class="modal-btn modal-btn-confirm" onclick="downloadResume()">Download</button>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
