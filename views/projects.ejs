@@ -27,10 +27,10 @@
 <section class="py-20 px-4 sm:px-6 lg:px-8">
     <div class="max-w-7xl mx-auto">
         <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <!-- Nursing Home Volunteer and Donation Management System -->
+            <!-- Nursing Home Volunteer and Donation Management System (FYP) -->
             <div class="project-card group" data-category="web">
                 <div class="aspect-video bg-gray-900 rounded-lg overflow-hidden mb-6">
-                    <img src="/assets/lovelynursinghome.png" alt="Nursing Home Volunteer and Donation Management System" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
+                    <img src="/assets/lovelynursinghome.png" alt="Nursing Home Volunteer and Donation Management System (FYP)" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500">
                 </div>
                 <h3 class="text-xl font-semibold text-white mb-2 group-hover:text-neon transition-colors duration-300">Nursing Home Volunteer and Donation Management System</h3>
                 <p class="text-gray-400 mb-4">Final Year Project (FYP) - A comprehensive system for managing volunteers and donations for nursing homes, streamlining the process of connecting volunteers with nursing homes and tracking donations.</p>
@@ -79,6 +79,40 @@
                         <a href="https://lms.olympia-education.com/" target="_blank" class="text-gray-600 hover:text-neon transition-colors duration-300">
                             <i class="fas fa-external-link-alt"></i>
                         </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- RedOneLMS -->
+            <div class="project-card group" data-category="web">
+                <div class="aspect-video bg-gray-900 rounded-lg overflow-hidden mb-6">
+                    <video
+                        src="/assets/RedOneLMS.mp4"
+                        class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                        muted
+                        loop
+                        playsinline
+                        autoplay
+                        preload="metadata"></video>
+                </div>
+                <h3 class="text-xl font-semibold text-white mb-2 group-hover:text-neon transition-colors duration-300">RedOneLMS</h3>
+                <p class="text-gray-400 mb-4">A comprehensive learning management system for REDOne</p>
+                <div class="flex flex-wrap gap-2 mb-4">
+                    <span class="px-3 py-1 bg-gray-900 text-gray-400 rounded-lg text-xs border border-gray-800">LMS</span>
+                    <span class="px-3 py-1 bg-gray-900 text-gray-400 rounded-lg text-xs border border-gray-800">Web App</span>
+                </div>
+                <div class="flex justify-between items-center">
+                    <button type="button" data-video-src="/assets/RedOneLMS.mp4" class="text-neon hover:text-neon-dark transition-colors duration-300">
+                        Watch Demo
+                        <i class="fas fa-arrow-right ml-2"></i>
+                    </button>
+                    <div class="flex space-x-3">
+                        <a href="#" class="text-gray-600 hover:text-neon transition-colors duration-300" aria-label="GitHub">
+                            <i class="fab fa-github"></i>
+                        </a>
+                        <button type="button" data-video-src="/assets/RedOneLMS.mp4" class="text-gray-600 hover:text-neon transition-colors duration-300" aria-label="External link">
+                            <i class="fas fa-external-link-alt"></i>
+                        </button>
                     </div>
                 </div>
             </div>
@@ -221,6 +255,31 @@ ECONOMIC CONFERENCE</h3>
     </div>
 </section>
 
+<!-- Media Modal (in-page popup) -->
+<div id="media-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center bg-black/70 p-4">
+    <div class="relative w-full max-w-4xl">
+        <button
+            type="button"
+            id="media-modal-close"
+            class="absolute -top-2 -right-2 z-10 w-10 h-10 rounded-full bg-gray-900 border border-gray-800 text-white hover:border-neon hover:text-neon transition-colors duration-300"
+            aria-label="Close"
+        >
+            <i class="fas fa-times"></i>
+        </button>
+
+        <div class="bg-gray-900 border border-gray-800 rounded-lg overflow-hidden">
+            <div class="aspect-video bg-black">
+                <video
+                    id="media-modal-video"
+                    class="w-full h-full object-contain bg-black"
+                    controls
+                    playsinline
+                ></video>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     // Filter functionality
     const filterBtns = document.querySelectorAll('.filter-btn');
@@ -246,5 +305,47 @@ ECONOMIC CONFERENCE</h3>
                 }
             });
         });
+    });
+
+    // In-page media modal (used by RedOneLMS demo buttons)
+    const mediaModal = document.getElementById('media-modal');
+    const mediaModalVideo = document.getElementById('media-modal-video');
+    const mediaModalClose = document.getElementById('media-modal-close');
+
+    function openMediaModal(src) {
+        if (!mediaModal || !mediaModalVideo) return;
+        mediaModalVideo.src = src;
+        // Slower playback for a calmer demo feel.
+        mediaModalVideo.playbackRate = 0.65;
+        mediaModal.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+        mediaModalVideo.play().catch(() => {});
+    }
+
+    function closeMediaModal() {
+        if (!mediaModal || !mediaModalVideo) return;
+        mediaModal.classList.add('hidden');
+        document.body.style.overflow = '';
+        mediaModalVideo.pause();
+        mediaModalVideo.removeAttribute('src');
+        mediaModalVideo.load();
+    }
+
+    document.querySelectorAll('[data-video-src]').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+            e.preventDefault();
+            openMediaModal(btn.dataset.videoSrc);
+        });
+    });
+
+    mediaModalClose?.addEventListener('click', closeMediaModal);
+    mediaModal?.addEventListener('click', (e) => {
+        // Close only when clicking the dark overlay
+        if (e.target === mediaModal) closeMediaModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && mediaModal && !mediaModal.classList.contains('hidden')) {
+            closeMediaModal();
+        }
     });
 </script>
