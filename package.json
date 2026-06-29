@@ -4,9 +4,11 @@
     "private": true,
     "type": "module",
     "scripts": {
-        "dev": "nodemon server.js",
-        "start": "node server.js",
-        "build": "echo 'Build complete - static files ready'"
+        "build:css": "tailwindcss -i ./public/css/input.css -o ./public/css/style.css",
+        "watch:css": "tailwindcss -i ./public/css/input.css -o ./public/css/style.css --watch",
+        "dev": "concurrently \"npm run watch:css\" \"nodemon server.js\"",
+        "start": "npm run build:css && node server.js",
+        "build": "npm run build:css"
     },
     "dependencies": {
         "dotenv": "^17.2.3",
@@ -17,6 +19,7 @@
         "path": "^0.12.7"
     },
     "devDependencies": {
+        "@tailwindcss/cli": "^4.3.1",
         "@tailwindcss/vite": "^4.0.0",
         "axios": "^1.11.0",
         "concurrently": "^9.0.1",
